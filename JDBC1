@@ -1,0 +1,23 @@
+package establishingconnection;
+
+import java.sql.DriverManager;
+
+public class Connection {
+public static void main(String[] args) {
+	String path = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String un = "system";
+	String pw = "system";
+	try
+	{
+		Class.forName(path);
+		System.out.println("Driver loaded successfully");
+		DriverManager.getConnection(url,un,pw);
+		System.out.println("Connection is established successfully");
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+}
+}
