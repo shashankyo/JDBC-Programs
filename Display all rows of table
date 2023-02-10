@@ -1,0 +1,43 @@
+package displayAllRowsofTable;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Program {
+public static void main(String[] args) {
+	String path = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String un = "system";
+	String pw = "system";
+	Connection con = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	String query = "select * from student";
+	try
+	{
+		Class.forName(path);
+		System.out.println("Driver is loaded successfully");
+		con = DriverManager.getConnection(url,un,pw);
+		System.out.println("Connection established successfully");
+		stmt = con.createStatement();
+		rs = stmt.executeQuery(query);
+		while(rs.next() == true)
+		{
+			int id = rs.getInt(1);
+			String name = rs.getString(2);
+			int m1 = rs.getInt(3);
+			int m2 = rs.getInt(4);
+			int m3 = rs.getInt(5);
+			int avg = rs.getInt(6);
+			System.out.println(id + " " + name + " "+ m1+" "+ m2 + " "+ m3 + " "+ avg);
+		}
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		
+	}
+}
+}
