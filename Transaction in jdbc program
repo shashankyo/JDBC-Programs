@@ -1,0 +1,38 @@
+package transactioninJDBC;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+public class Program {
+public static void main(String[] args) {
+	String path = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String un = "system";
+	String pw = "system";
+	Connection con = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	String query1 = "update bank set balance = balance - 5000 where id = 3";
+	String query2 = "update bank set balance = balance + 5000 where id = 1";
+	try
+	{
+		Class.forName(path);
+		System.out.println("Driver is loaded successfully");
+		con  = DriverManager.getConnection(url,un,pw);
+		System.out.println("Connection established successfully");
+		con.setAutoCommit(false);
+		stmt = con.createStatement();
+		stmt.executeUpdate(query1);
+		stmt.executeUpdate(query2);
+		con.commit();
+		System.out.println("Query has been executed");
+		
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+}
+}
