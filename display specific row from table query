@@ -1,0 +1,50 @@
+package displaySpecificRowfromDatabase;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+public class Program {
+public static void main(String[] args) {
+	String path = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String un = "system";
+	String pw = "system";
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	String query = "select * from student where id = ?";
+
+	try
+	{
+		Class.forName(path);
+		System.out.println("Driver is loaded successfully");
+		con  = DriverManager.getConnection(url,un,pw);
+		System.out.println("Connection is established successfully");
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Enter the id of the student");
+		int id = scan.nextInt();
+		pstmt = con.prepareStatement(query);
+		pstmt.setInt(1, id);
+		rs = pstmt.executeQuery();
+		while(rs.next() == true)
+		{
+			int id1 = rs.getInt("id");
+			String name = rs.getString("name");
+			int m1 = rs.getInt("m1");
+			int m2= rs.getInt("m2");
+			int m3= rs.getInt("m3");
+			int avg= rs.getInt("avg");
+			System.out.println(id1+" "+name+" "+m1+" "+m2+" "+m3+" "+avg);		
+		}		
+		
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+}
+
+}
