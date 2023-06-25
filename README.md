@@ -1,2 +1,2 @@
 # JDBC-Programs
-JDBC kodnest programs
+JDBC Kodnest programs
